@@ -24,4 +24,5 @@ public class ApplicationUser : IdentityUser<Guid>
     /// Last login timestamp
     /// </summary>
     public DateTime? LastLoginAt { get; set; }
+
 }
