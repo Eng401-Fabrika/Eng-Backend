@@ -8,8 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Managers\" />
       <Folder Include="Utils\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Eng-Backend.DAL\Eng-Backend.DAL.csproj" />
     </ItemGroup>
 
 </Project>

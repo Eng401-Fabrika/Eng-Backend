@@ -1,4 +1,4 @@
-namespace Eng_Backend.EntityLayer.Entities;
+namespace Eng_Backend.DAL.Entities;
 
 public interface IEntity<T> where T : class
 {
