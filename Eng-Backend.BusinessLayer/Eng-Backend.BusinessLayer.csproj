@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>Eng_Backend.BusinessLayer</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\Eng-Backend.DAL\Eng-Backend.DAL.csproj" />
+      <ProjectReference Include="..\Eng-Backend.DtoLayer\Eng-Backend.DtoLayer.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.15.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
+    </ItemGroup>
+
+</Project>

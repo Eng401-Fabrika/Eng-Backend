@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: eng_backend_postgres
+    environment:
+      POSTGRES_DB: eng_backend_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - eng_backend_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  eng_backend_postgres_data:
