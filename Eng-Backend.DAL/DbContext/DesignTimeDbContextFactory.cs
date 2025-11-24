@@ -9,7 +9,7 @@ namespace Eng_Backend.DAL.DbContext
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            // Projenin ROOT dizinini bul
+           
             var basePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), ".."));
 
             var config = new ConfigurationBuilder()

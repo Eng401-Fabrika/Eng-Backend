@@ -23,15 +23,19 @@ public class JwtHelper
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Name, user.FullName)
-            // İleride buraya "Admin" gibi roller de eklenebilir.
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value!));
+        var tokenValue = _configuration["AppSettings:Token"];
+        if (string.IsNullOrEmpty(tokenValue))
+            throw new InvalidOperationException("JWT secret is missing");
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValue));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
+        
         var token = new JwtSecurityToken(
             claims: claims,
-            expires: DateTime.Now.AddDays(1), // Token 1 gün geçerli olsun
+            expires: DateTime.Now.AddDays(1), 
             signingCredentials: creds
         );
 
