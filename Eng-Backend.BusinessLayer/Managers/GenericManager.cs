@@ -1,11 +1,11 @@
 using Eng_Backend.BusinessLayer.Interfaces;
-using Eng_Backend.DAL.Interfaces; // IGenericDal referansı
+using Eng_Backend.DAL.Interfaces; // IGenericDal reference
 
 namespace Eng_Backend.BusinessLayer.Managers;
 
 public class GenericManager<T> : IGenericService<T> where T : class
 {
-    // İsmi IGenericDal olarak değiştirdik
+    // Renamed to IGenericDal
     private readonly IGenericDal<T> _dal; 
 
     public GenericManager(IGenericDal<T> dal)
@@ -28,13 +28,13 @@ public class GenericManager<T> : IGenericService<T> where T : class
         await _dal.AddAsync(entity);
     }
 
-    // KRİTİK DÜZELTME BURADA:
+    // CRITICAL FIX HERE:
     public async Task TDeleteAsync(Guid id)
     {
-        // 1. Önce silinecek nesneyi buluyoruz
+        // 1. First find the entity to be deleted
         var entity = await _dal.GetByIdAsync(id);
         
-        // 2. Eğer nesne varsa, DAL'a nesneyi gönderip sildiriyoruz
+        // 2. If the entity exists, send it to DAL to delete
         if (entity != null)
         {
             await _dal.DeleteAsync(entity);
