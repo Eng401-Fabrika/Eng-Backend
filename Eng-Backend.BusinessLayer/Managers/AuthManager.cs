@@ -1,14 +1,14 @@
 using Eng_Backend.BusinessLayer.Interfaces;
 using Eng_Backend.BusinessLayer.Utils;
 using Eng_Backend.DtoLayer.Auth;
-using Eng_Backend.DAL.Entities; // ApplicationUser burada
-using Microsoft.AspNetCore.Identity; // UserManager ve SignInManager için şart
+using Eng_Backend.DAL.Entities; // ApplicationUser is defined here
+using Microsoft.AspNetCore.Identity; // Required for UserManager and SignInManager
 
 namespace Eng_Backend.BusinessLayer.Managers;
 
 public class AuthManager : IAuthService
 {
-    // GenericService yerine Identity'nin kendi yöneticilerini kullanıyoruz
+    // Using Identity's own managers instead of GenericService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly JwtHelper _jwtHelper;
@@ -22,51 +22,51 @@ public class AuthManager : IAuthService
 
     public async Task<ServiceResult> RegisterAsync(RegisterDto dto)
     {
-        // 1. Kullanıcı Nesnesini Oluştur
+        // 1. Create User Object
         var user = new ApplicationUser
         {
-            UserName = dto.Email, // Identity'de UserName zorunludur, email yapabiliriz
+            UserName = dto.Email, // UserName is required in Identity, we can use email
             Email = dto.Email,
             FullName = dto.FullName,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
 
-        // 2. Identity Kütüphanesi ile Kaydet (Şifreyi otomatik hashler ve string olarak saklar)
-        // HashingHelper kullanmana gerek YOK.
+        // 2. Save with Identity Library (Automatically hashes the password and stores it as a string)
+        // No need to use HashingHelper.
         var result = await _userManager.CreateAsync(user, dto.Password);
 
         if (result.Succeeded)
         {
-            return ServiceResult.Ok(null, "Kayıt başarıyla oluşturuldu.");
+            return ServiceResult.Ok(null, "Registration completed successfully.");
         }
 
-        // Hata varsa (Örn: Şifre çok kısa, Email kullanılıyor vb.)
-        // Hataları birleştirip dönüyoruz
+        // If there are errors (e.g., password too short, email already in use, etc.)
+        // We combine and return the errors
         var errorMsg = string.Join(", ", result.Errors.Select(e => e.Description));
         return ServiceResult.Fail(errorMsg);
     }
 
     public async Task<ServiceResult> LoginAsync(LoginDto dto)
     {
-        // 1. Kullanıcıyı Email ile bul
+        // 1. Find User by Email
         var user = await _userManager.FindByEmailAsync(dto.Email);
         
         if (user == null)
-            return ServiceResult.Fail("Kullanıcı bulunamadı.");
+            return ServiceResult.Fail("User not found.");
 
-        // 2. Şifre Doğrulama (Identity kendi içinde string hash'i çözer ve kontrol eder)
-        // VerifyPasswordHash metoduna gerek YOK.
+        // 2. Password Verification (Identity internally decodes the string hash and verifies)
+        // No need for VerifyPasswordHash method.
         var checkPassword = await _userManager.CheckPasswordAsync(user, dto.Password);
 
         if (!checkPassword)
-            return ServiceResult.Fail("Şifre hatalı.");
+            return ServiceResult.Fail("Invalid password.");
 
-        // 3. Token Üretme
-        // DİKKAT: JwtHelper sınıfının CreateToken metodunun parametresini 
-        // "User" yerine "ApplicationUser" alacak şekilde güncellemen gerekebilir.
+        // 3. Token Generation
+        // NOTE: You may need to update the JwtHelper class's CreateToken method parameter
+        // to accept "ApplicationUser" instead of "User".
         string token = _jwtHelper.CreateToken(user);
 
-        return ServiceResult.Ok(new { Token = token }, "Giriş başarılı.");
+        return ServiceResult.Ok(new { Token = token }, "Login successful.");
     }
 }
