@@ -63,8 +63,6 @@ public class AuthManager : IAuthService
             return ServiceResult.Fail("Şifre hatalı.");
 
         // 3. Token Üretme
-        // DİKKAT: JwtHelper sınıfının CreateToken metodunun parametresini 
-        // "User" yerine "ApplicationUser" alacak şekilde güncellemen gerekebilir.
         string token = _jwtHelper.CreateToken(user);
 
         return ServiceResult.Ok(new { Token = token }, "Giriş başarılı.");

@@ -3,6 +3,8 @@ using System.Text;
 
 namespace Eng_Backend.BusinessLayer.Utils;
 
+// This helper is kept for potential future non-Identity scenarios.
+
 public static class HashingHelper
 {
     // Şifreyi oluştururken (Register) kullanılır

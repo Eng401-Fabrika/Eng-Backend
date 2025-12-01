@@ -16,8 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IAuthService, AuthManager>();
-
-
+builder.Services.AddScoped<IRoleService, RoleManager>();
+builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 // Configure Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -28,7 +28,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    // Swagger'da kilit ikonunu çıkarmak için bu ayar şart
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Eng_Backend API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -54,22 +53,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Kendi servislerimizi bağlıyoruz
-// Eski satırı silip bunu yapıştır:
+
 builder.Services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));
 
-// Bu satır aynı kalabilir (Manager hala aynı servisi implemente ediyor):
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
 builder.Services.AddScoped<JwtHelper>(); // Token üretici
 builder.Services.AddScoped<IAuthService, AuthManager>(); // Auth iş mantığı
-// İleride buraya generic servisleri de ekleyeceksin:
-// builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>)); 
-// 1. Önce Identity Servisi Eklenir
+
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-// 2. Sonra Authentication Ayarları Eklenir (Identity'nin Cookie ayarını eziyoruz)
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
