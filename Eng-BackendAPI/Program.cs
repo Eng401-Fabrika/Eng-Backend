@@ -1,4 +1,5 @@
 using System.Text;
+using Amazon.S3;
 using Eng_Backend.DAL.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Eng_Backend.BusinessLayer.Interfaces;
@@ -11,13 +12,36 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Eng_BackendAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load local secrets file if exists (not committed to git)
+var env = builder.Environment;
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{env.EnvironmentName}.local.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddScoped<IAuthService, AuthManager>();
 builder.Services.AddScoped<IRoleService, RoleManager>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IS3Service, S3Service>();
+builder.Services.AddScoped<IProblemService, ProblemService>();
+builder.Services.AddScoped<IQuizService, QuizService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
+// Unit of Work
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Configure AWS S3
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonS3>();
+
 // Configure Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -82,6 +106,9 @@ builder.Services.AddAuthentication(options =>
     });
 var app = builder.Build();
 
+// Seed admin user on startup
+await DbSeeder.SeedAdminUserAsync(app.Services);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -90,6 +117,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Global Exception Handler Middleware
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseAuthentication(); 
 app.UseAuthorization();

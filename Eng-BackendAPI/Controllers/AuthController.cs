@@ -1,5 +1,6 @@
 using Eng_Backend.BusinessLayer.Interfaces;
 using Eng_Backend.DtoLayer.Auth;
+using Eng_Backend.DtoLayer.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eng_BackendAPI.Controllers
@@ -18,22 +19,20 @@ namespace Eng_BackendAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
+            // Service layer will throw exceptions if validation fails
+            // Middleware will catch and handle them automatically
             var result = await _authService.RegisterAsync(dto);
-
-            if (!result.Success)
-                return BadRequest(result);
-
-            return Ok(result);
+            
+            return Ok(ApiResponse.SuccessResponse(result.Message, 201));
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
+            // Service layer will throw exceptions if validation fails
+            // Middleware will catch and handle them automatically
             var result = await _authService.LoginAsync(dto);
-
-            if (!result.Success)
-                return BadRequest(result);
-
-            return Ok(result);
+            
+            return Ok(ApiResponse<object>.SuccessResponse(result.Data, result.Message));
         }
     }
 }
