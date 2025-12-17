@@ -15,6 +15,19 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
     // DbSets
     public DbSet<Permission> Permissions { get; set; }
     public DbSet<RolePermission> RolePermissions { get; set; }
+    public DbSet<Document> Documents { get; set; }
+    public DbSet<DocumentRole> DocumentRoles { get; set; }
+
+    // Problem/Task Management
+    public DbSet<Problem> Problems { get; set; }
+    public DbSet<ProblemAssignment> ProblemAssignments { get; set; }
+    public DbSet<Solution> Solutions { get; set; }
+    public DbSet<SolutionFile> SolutionFiles { get; set; }
+
+    // Quiz/Gamification
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<UserAnswer> UserAnswers { get; set; }
+    public DbSet<UserScore> UserScores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -40,6 +53,115 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
         // Configure Permission unique index on Name
         builder.Entity<Permission>()
             .HasIndex(p => p.Name)
+            .IsUnique();
+
+        // Configure Document entity
+        builder.Entity<Document>()
+            .HasOne(d => d.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(d => d.CreatedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Configure DocumentRole composite key
+        builder.Entity<DocumentRole>()
+            .HasKey(dr => new { dr.DocumentId, dr.RoleId });
+
+        builder.Entity<DocumentRole>()
+            .HasOne(dr => dr.Document)
+            .WithMany(d => d.DocumentRoles)
+            .HasForeignKey(dr => dr.DocumentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<DocumentRole>()
+            .HasOne(dr => dr.Role)
+            .WithMany()
+            .HasForeignKey(dr => dr.RoleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // ============ Problem/Task Configuration ============
+
+        // Problem
+        builder.Entity<Problem>()
+            .HasOne(p => p.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(p => p.CreatedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // ProblemAssignment
+        builder.Entity<ProblemAssignment>()
+            .HasOne(pa => pa.Problem)
+            .WithMany(p => p.Assignments)
+            .HasForeignKey(pa => pa.ProblemId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<ProblemAssignment>()
+            .HasOne(pa => pa.AssignedToUser)
+            .WithMany()
+            .HasForeignKey(pa => pa.AssignedToUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<ProblemAssignment>()
+            .HasOne(pa => pa.AssignedByUser)
+            .WithMany()
+            .HasForeignKey(pa => pa.AssignedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Solution
+        builder.Entity<Solution>()
+            .HasOne(s => s.Assignment)
+            .WithMany(a => a.Solutions)
+            .HasForeignKey(s => s.AssignmentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Solution>()
+            .HasOne(s => s.ReviewedByUser)
+            .WithMany()
+            .HasForeignKey(s => s.ReviewedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // SolutionFile
+        builder.Entity<SolutionFile>()
+            .HasOne(sf => sf.Solution)
+            .WithMany(s => s.Files)
+            .HasForeignKey(sf => sf.SolutionId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // ============ Quiz/Gamification Configuration ============
+
+        // Question
+        builder.Entity<Question>()
+            .HasOne(q => q.Document)
+            .WithMany()
+            .HasForeignKey(q => q.DocumentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // UserAnswer
+        builder.Entity<UserAnswer>()
+            .HasOne(ua => ua.Question)
+            .WithMany(q => q.UserAnswers)
+            .HasForeignKey(ua => ua.QuestionId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<UserAnswer>()
+            .HasOne(ua => ua.User)
+            .WithMany()
+            .HasForeignKey(ua => ua.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Prevent duplicate answers - one answer per user per question
+        builder.Entity<UserAnswer>()
+            .HasIndex(ua => new { ua.UserId, ua.QuestionId })
+            .IsUnique();
+
+        // UserScore - one score record per user
+        builder.Entity<UserScore>()
+            .HasOne(us => us.User)
+            .WithMany()
+            .HasForeignKey(us => us.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<UserScore>()
+            .HasIndex(us => us.UserId)
             .IsUnique();
 
         // Seed Data

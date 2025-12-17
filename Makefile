@@ -1,4 +1,4 @@
-.PHONY: help db-build db-up db-down db-restart db-logs db-clean restore build run migrate
+.PHONY: help db-build db-up db-down db-restart db-logs db-clean db-reset restore build run migrate
 
 help:
 	@echo "Available commands:"
@@ -8,6 +8,7 @@ help:
 	@echo "  make db-restart   - Restart PostgreSQL container"
 	@echo "  make db-logs      - Show PostgreSQL logs"
 	@echo "  make db-clean     - Remove PostgreSQL container and volume"
+	@echo "  make db-reset     - Clean, rebuild and migrate database"
 	@echo "  make restore      - Restore NuGet packages"
 	@echo "  make build        - Build the solution"
 	@echo "  make run          - Run the API"
@@ -42,6 +43,14 @@ db-clean:
 	docker stop eng_backend_postgres || true
 	docker rm eng_backend_postgres || true
 	docker volume rm eng_backend_postgres_data || true
+
+db-reset:
+	make db-clean
+	make db-build
+	make db-up
+	@echo "Waiting for PostgreSQL to be ready..."
+	@sleep 5
+	make migrate
 
 # .NET commands
 restore:

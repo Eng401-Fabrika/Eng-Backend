@@ -3,6 +3,7 @@ using System;
 using Eng_Backend.DAL.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Eng_Backend.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251217100503_AddDocumentEntity")]
+    partial class AddDocumentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,35 +67,35 @@ namespace Eng_Backend.DAL.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ConcurrencyStamp = "efa73bb2-f247-40f9-a6d1-5a5f1d627076",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5770),
+                            ConcurrencyStamp = "51a0a8cc-6302-4d5c-97f1-bda3c174f41d",
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 802, DateTimeKind.Utc).AddTicks(9970),
                             Description = "System Administrator with full access",
                             IsSystemRole = true,
                             Name = "Admin",
                             NormalizedName = "ADMIN",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5770)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 802, DateTimeKind.Utc).AddTicks(9970)
                         },
                         new
                         {
                             Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            ConcurrencyStamp = "9ee2c501-0013-46db-a0c4-7884e16ee92f",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5810),
+                            ConcurrencyStamp = "ed405ea7-df13-4b51-b768-a4b5c4d48d6c",
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(10),
                             Description = "Default user role with basic permissions",
                             IsSystemRole = true,
                             Name = "User",
                             NormalizedName = "USER",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5810)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(10)
                         },
                         new
                         {
                             Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            ConcurrencyStamp = "40c0cd63-ac7f-406d-9647-ae2e244347d6",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5820),
+                            ConcurrencyStamp = "9e261631-b5da-4d2d-9878-4a7b4b49040a",
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(10),
                             Description = "Generic role to assign dynamic permissions",
                             IsSystemRole = false,
                             Name = "GenericRole",
                             NormalizedName = "GENERICROLE",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5820)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(10)
                         });
                 });
 
@@ -287,271 +290,152 @@ namespace Eng_Backend.DAL.Migrations
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000001"),
                             Category = "Users",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5920),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(110),
                             Description = "Yeni kullanıcı oluşturabilir",
                             DisplayName = "Kullanıcı Oluşturma",
                             Name = "Users.Create",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5920)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(110)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000002"),
                             Category = "Users",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(110),
                             Description = "Kullanıcıları görüntüleyebilir",
                             DisplayName = "Kullanıcı Görüntüleme",
                             Name = "Users.Read",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(110)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000003"),
                             Category = "Users",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(110),
                             Description = "Kullanıcı bilgilerini güncelleyebilir",
                             DisplayName = "Kullanıcı Güncelleme",
                             Name = "Users.Update",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(110)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000004"),
                             Category = "Users",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120),
                             Description = "Kullanıcıları silebilir",
                             DisplayName = "Kullanıcı Silme",
                             Name = "Users.Delete",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000005"),
                             Category = "Roles",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120),
                             Description = "Yeni rol oluşturabilir",
                             DisplayName = "Rol Oluşturma",
                             Name = "Roles.Create",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000006"),
                             Category = "Roles",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120),
                             Description = "Rolleri görüntüleyebilir",
                             DisplayName = "Rol Görüntüleme",
                             Name = "Roles.Read",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5930)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000007"),
                             Category = "Roles",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120),
                             Description = "Rol bilgilerini güncelleyebilir",
                             DisplayName = "Rol Güncelleme",
                             Name = "Roles.Update",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000008"),
                             Category = "Roles",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120),
                             Description = "Rolleri silebilir",
                             DisplayName = "Rol Silme",
                             Name = "Roles.Delete",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(120)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000009"),
                             Category = "Permissions",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130),
                             Description = "Yeni yetki tanımlayabilir",
                             DisplayName = "Yetki Oluşturma",
                             Name = "Permissions.Create",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000010"),
                             Category = "Permissions",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130),
                             Description = "Yetkileri görüntüleyebilir",
                             DisplayName = "Yetki Görüntüleme",
                             Name = "Permissions.Read",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000011"),
                             Category = "Permissions",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130),
                             Description = "Yetki bilgilerini güncelleyebilir",
                             DisplayName = "Yetki Güncelleme",
                             Name = "Permissions.Update",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000012"),
                             Category = "Permissions",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130),
                             Description = "Yetkileri silebilir",
                             DisplayName = "Yetki Silme",
                             Name = "Permissions.Delete",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5940)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000013"),
                             Category = "Posts",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5950),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130),
                             Description = "Yeni içerik oluşturabilir",
                             DisplayName = "İçerik Oluşturma",
                             Name = "Posts.Create",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5950)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000014"),
                             Category = "Posts",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5950),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130),
                             Description = "İçerik güncelleyebilir",
                             DisplayName = "İçerik Güncelleme",
                             Name = "Posts.Update",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5950)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(130)
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000015"),
                             Category = "Posts",
-                            CreatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5950),
+                            CreatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(140),
                             Description = "İçerik silebilir",
                             DisplayName = "İçerik Silme",
                             Name = "Posts.Delete",
-                            UpdatedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(5950)
+                            UpdatedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(140)
                         });
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Problem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedByUserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.ToTable("Problems");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.ProblemAssignment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("AssignedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("AssignedByUserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AssignedToUserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsNotified")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("NotifiedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ProblemId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssignedByUserId");
-
-                    b.HasIndex("AssignedToUserId");
-
-                    b.HasIndex("ProblemId");
-
-                    b.ToTable("ProblemAssignments");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Question", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CorrectAnswerIndex")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("DocumentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Options")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("QuestionText")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
-
-                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Eng_Backend.DAL.Entities.RolePermission", b =>
@@ -576,242 +460,92 @@ namespace Eng_Backend.DAL.Migrations
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000001"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6010)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000002"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000003"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000004"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000005"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000006"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000007"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(200)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000008"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000009"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6020)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000010"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6030)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000011"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6030)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000012"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6030)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000013"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6030)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000014"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6030)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         },
                         new
                         {
                             RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
                             PermissionId = new Guid("10000000-0000-0000-0000-000000000015"),
-                            GrantedAt = new DateTime(2025, 12, 17, 14, 30, 17, 658, DateTimeKind.Utc).AddTicks(6030)
+                            GrantedAt = new DateTime(2025, 12, 17, 10, 5, 2, 803, DateTimeKind.Utc).AddTicks(210)
                         });
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Solution", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AssignmentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PointsAwarded")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ReviewNotes")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("ReviewedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("ReviewedByUserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("SubmittedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssignmentId");
-
-                    b.HasIndex("ReviewedByUserId");
-
-                    b.ToTable("Solutions");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.SolutionFile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileKey")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("FileSizeBytes")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("FileUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("SolutionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SolutionId");
-
-                    b.ToTable("SolutionFiles");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.UserAnswer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("AnsweredAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("PointsEarned")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("SelectedAnswerIndex")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.HasIndex("UserId", "QuestionId")
-                        .IsUnique();
-
-                    b.ToTable("UserAnswers");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.UserScore", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QuizPoints")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QuizzesCompleted")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TaskPoints")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TasksCompleted")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TotalPoints")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UserScores");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -947,55 +681,6 @@ namespace Eng_Backend.DAL.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Problem", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.ApplicationUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedByUser");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.ProblemAssignment", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.ApplicationUser", "AssignedByUser")
-                        .WithMany()
-                        .HasForeignKey("AssignedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Eng_Backend.DAL.Entities.ApplicationUser", "AssignedToUser")
-                        .WithMany()
-                        .HasForeignKey("AssignedToUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Eng_Backend.DAL.Entities.Problem", "Problem")
-                        .WithMany("Assignments")
-                        .HasForeignKey("ProblemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AssignedByUser");
-
-                    b.Navigation("AssignedToUser");
-
-                    b.Navigation("Problem");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Question", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.Document", "Document")
-                        .WithMany()
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Document");
-                });
-
             modelBuilder.Entity("Eng_Backend.DAL.Entities.RolePermission", b =>
                 {
                     b.HasOne("Eng_Backend.DAL.Entities.Permission", "Permission")
@@ -1013,65 +698,6 @@ namespace Eng_Backend.DAL.Migrations
                     b.Navigation("Permission");
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Solution", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.ProblemAssignment", "Assignment")
-                        .WithMany("Solutions")
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Eng_Backend.DAL.Entities.ApplicationUser", "ReviewedByUser")
-                        .WithMany()
-                        .HasForeignKey("ReviewedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Assignment");
-
-                    b.Navigation("ReviewedByUser");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.SolutionFile", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.Solution", "Solution")
-                        .WithMany("Files")
-                        .HasForeignKey("SolutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Solution");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.UserAnswer", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.Question", "Question")
-                        .WithMany("UserAnswers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Eng_Backend.DAL.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.UserScore", b =>
-                {
-                    b.HasOne("Eng_Backend.DAL.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -1138,26 +764,6 @@ namespace Eng_Backend.DAL.Migrations
             modelBuilder.Entity("Eng_Backend.DAL.Entities.Permission", b =>
                 {
                     b.Navigation("RolePermissions");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Problem", b =>
-                {
-                    b.Navigation("Assignments");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.ProblemAssignment", b =>
-                {
-                    b.Navigation("Solutions");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Question", b =>
-                {
-                    b.Navigation("UserAnswers");
-                });
-
-            modelBuilder.Entity("Eng_Backend.DAL.Entities.Solution", b =>
-                {
-                    b.Navigation("Files");
                 });
 #pragma warning restore 612, 618
         }

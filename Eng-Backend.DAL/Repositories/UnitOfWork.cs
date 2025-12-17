@@ -15,11 +15,33 @@ public class UnitOfWork : IUnitOfWork
         Permissions = new PermissionRepository(_context);
         Roles = new RoleRepository(_context);
         Users = new UserRepository(_context);
+
+        // Problem/Task repositories
+        Problems = new ProblemRepository(_context);
+        ProblemAssignments = new ProblemAssignmentRepository(_context);
+        Solutions = new SolutionRepository(_context);
+        SolutionFiles = new SolutionFileRepository(_context);
+
+        // Quiz repositories
+        Questions = new QuestionRepository(_context);
+        UserAnswers = new UserAnswerRepository(_context);
+        UserScores = new UserScoreRepository(_context);
     }
 
     public IPermissionDal Permissions { get; }
     public IRoleDal Roles { get; }
     public IUserDal Users { get; }
+
+    // Problem/Task repositories
+    public IProblemDal Problems { get; }
+    public IProblemAssignmentDal ProblemAssignments { get; }
+    public ISolutionDal Solutions { get; }
+    public ISolutionFileDal SolutionFiles { get; }
+
+    // Quiz repositories
+    public IQuestionDal Questions { get; }
+    public IUserAnswerDal UserAnswers { get; }
+    public IUserScoreDal UserScores { get; }
 
     public async Task<int> SaveChangesAsync()
     {

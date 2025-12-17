@@ -1,14 +1,15 @@
+using Eng_Backend.BusinessLayer.Constants;
 using Eng_Backend.BusinessLayer.Interfaces;
 using Eng_Backend.BusinessLayer.Utils;
+using Eng_Backend.BusinessLayer.Exceptions;
 using Eng_Backend.DtoLayer.Auth;
-using Eng_Backend.DAL.Entities; // ApplicationUser burada
-using Microsoft.AspNetCore.Identity; // UserManager ve SignInManager için şart
+using Eng_Backend.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Eng_Backend.BusinessLayer.Managers;
 
 public class AuthManager : IAuthService
 {
-    // GenericService yerine Identity'nin kendi yöneticilerini kullanıyoruz
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly JwtHelper _jwtHelper;
@@ -22,49 +23,87 @@ public class AuthManager : IAuthService
 
     public async Task<ServiceResult> RegisterAsync(RegisterDto dto)
     {
-        // 1. Kullanıcı Nesnesini Oluştur
-        var user = new ApplicationUser
+        try
         {
-            UserName = dto.Email, // Identity'de UserName zorunludur, email yapabiliriz
-            Email = dto.Email,
-            FullName = dto.FullName,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        };
+            if (string.IsNullOrWhiteSpace(dto.Email))
+                throw new BadRequestException(ErrorMessages.EmailRequired);
 
-        // 2. Identity Kütüphanesi ile Kaydet (Şifreyi otomatik hashler ve string olarak saklar)
-        // HashingHelper kullanmana gerek YOK.
-        var result = await _userManager.CreateAsync(user, dto.Password);
+            if (string.IsNullOrWhiteSpace(dto.Password))
+                throw new BadRequestException(ErrorMessages.PasswordRequired);
 
-        if (result.Succeeded)
-        {
-            return ServiceResult.Ok(null, "Kayıt başarıyla oluşturuldu.");
+            if (string.IsNullOrWhiteSpace(dto.FullName))
+                throw new BadRequestException(ErrorMessages.FullNameRequired);
+
+            var existingUser = await _userManager.FindByEmailAsync(dto.Email);
+            if (existingUser != null)
+                throw new BadRequestException(ErrorMessages.UserAlreadyExists);
+
+            var user = new ApplicationUser
+            {
+                UserName = dto.Email,
+                Email = dto.Email,
+                FullName = dto.FullName,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            var result = await _userManager.CreateAsync(user, dto.Password);
+
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description).ToList();
+                throw new BadRequestException(ErrorMessages.RegistrationFailed, errors);
+            }
+
+            return ServiceResult.Ok(null, SuccessMessages.RegistrationSuccessful);
         }
-
-        // Hata varsa (Örn: Şifre çok kısa, Email kullanılıyor vb.)
-        // Hataları birleştirip dönüyoruz
-        var errorMsg = string.Join(", ", result.Errors.Select(e => e.Description));
-        return ServiceResult.Fail(errorMsg);
+        catch (BadRequestException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new InternalServerException(string.Format(ErrorMessages.InternalErrorWithDetails, ex.Message));
+        }
     }
 
     public async Task<ServiceResult> LoginAsync(LoginDto dto)
     {
-        // 1. Kullanıcıyı Email ile bul
-        var user = await _userManager.FindByEmailAsync(dto.Email);
-        
-        if (user == null)
-            return ServiceResult.Fail("Kullanıcı bulunamadı.");
+        try
+        {
+            if (string.IsNullOrWhiteSpace(dto.Email))
+                throw new BadRequestException(ErrorMessages.EmailRequired);
 
-        // 2. Şifre Doğrulama (Identity kendi içinde string hash'i çözer ve kontrol eder)
-        // VerifyPasswordHash metoduna gerek YOK.
-        var checkPassword = await _userManager.CheckPasswordAsync(user, dto.Password);
+            if (string.IsNullOrWhiteSpace(dto.Password))
+                throw new BadRequestException(ErrorMessages.PasswordRequired);
 
-        if (!checkPassword)
-            return ServiceResult.Fail("Şifre hatalı.");
+            var user = await _userManager.FindByEmailAsync(dto.Email);
 
-        // 3. Token Üretme
-        string token = _jwtHelper.CreateToken(user);
+            if (user == null)
+                throw new UnauthorizedException(ErrorMessages.InvalidCredentials);
 
-        return ServiceResult.Ok(new { Token = token }, "Giriş başarılı.");
+            var checkPassword = await _userManager.CheckPasswordAsync(user, dto.Password);
+
+            if (!checkPassword)
+                throw new UnauthorizedException(ErrorMessages.InvalidCredentials);
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            string token = _jwtHelper.CreateToken(user, roles);
+
+            return ServiceResult.Ok(new { Token = token }, SuccessMessages.LoginSuccessful);
+        }
+        catch (BadRequestException)
+        {
+            throw;
+        }
+        catch (UnauthorizedException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new InternalServerException(string.Format(ErrorMessages.InternalErrorWithDetails, ex.Message));
+        }
     }
 }

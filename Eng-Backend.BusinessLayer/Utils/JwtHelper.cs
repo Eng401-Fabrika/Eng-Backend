@@ -16,7 +16,7 @@ public class JwtHelper
         _configuration = configuration;
     }
 
-    public string CreateToken(ApplicationUser user)
+    public string CreateToken(ApplicationUser user, IList<string> roles)
     {
         var claims = new List<Claim>
         {
@@ -24,6 +24,12 @@ public class JwtHelper
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Name, user.FullName)
         };
+
+        // Add role claims for authorization
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var tokenValue = _configuration["AppSettings:Token"];
         if (string.IsNullOrEmpty(tokenValue))
